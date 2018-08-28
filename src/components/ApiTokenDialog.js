@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,9 +7,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {fetchCardsIfNeeded} from '../actions'
 
 
-export default class ApiTokenDialog extends React.Component {
+class ApiTokenDialog extends React.Component {
   constructor(props) {
     super(props);
     this.apiToken = React.createRef();
@@ -17,6 +19,7 @@ export default class ApiTokenDialog extends React.Component {
   onSubmit = (e) => {
     e.preventDefault(); //prevent form from linking to page
     sessionStorage.setItem('apiToken', this.apiToken.value);
+    this.props.fetchCardsIfNeeded(0);
     this.forceUpdate(); //close dialog by refreshing open prop
   }
 
@@ -50,3 +53,5 @@ export default class ApiTokenDialog extends React.Component {
     )
   }
 }
+
+export default connect(null, {fetchCardsIfNeeded})(ApiTokenDialog)

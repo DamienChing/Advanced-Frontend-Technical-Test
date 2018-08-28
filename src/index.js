@@ -19,7 +19,11 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>
-  , document.getElementById('root'));
+  , document.getElementById('root')
+);
 registerServiceWorker();
 
-if (sessionStorage.getItem('apiToken')) store.dispatch(Actions.fetchCardsIfNeeded(0));
+const apiToken = sessionStorage.getItem('apiToken')
+if (apiToken) {
+  store.dispatch(Actions.fetchCardsIfNeeded(0));
+}

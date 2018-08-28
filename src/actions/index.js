@@ -18,11 +18,16 @@ export function fetchCards(page) {
         headers: { apiToken: sessionStorage.getItem('apiToken') }
       })
       .then(response => {
+        if (!response.ok) throw(response);
         const cardsCount = response.headers.get('X-Total-Count');
         dispatch(setCardsCount(cardsCount))
         return response.json();
       })
-      .then(json => dispatch(receiveCards(page, json)));
+      .catch(error => {
+          sessionStorage.removeItem('apiToken');
+          window.location.reload();
+      })
+      .then(json => dispatch(receiveCards(page, json)))
   }
 }
 
