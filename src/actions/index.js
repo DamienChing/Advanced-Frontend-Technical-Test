@@ -53,3 +53,11 @@ export function setCardsCount(cardsCount) {
     cardsCount
   }
 }
+
+export const CHANGE_PAGE = 'CHANGE_PAGE';
+function changePage(page) {
+  return {
+    type: CHANGE_PAGE,
+    page
+  }
+}

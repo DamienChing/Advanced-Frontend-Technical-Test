@@ -22,4 +22,4 @@ ReactDOM.render(
   , document.getElementById('root'));
 registerServiceWorker();
 
-store.dispatch(Actions.fetchCardsIfNeeded(0));
+if (sessionStorage.getItem('apiToken')) store.dispatch(Actions.fetchCardsIfNeeded(0));
