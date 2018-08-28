@@ -1,7 +1,7 @@
 const actionToHandler = {
   RECEIVE_CARDS: (state, action) => {
     let newState = state.slice();
-    newState.splice(action.page * 12, 48, action.cards);
+    newState.splice(action.page * 12, 48, ...action.cards);
     return newState;
   },
   REQUEST_CARDS: (state, action) => {
