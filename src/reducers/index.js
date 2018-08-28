@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux'
 import cards from './cards'
-import cardsViewer from './cardViewer'
+import viewer from './viewer'
 
 const store = combineReducers({
     cards,
-    cardsViewer
+    viewer
 })
 
 export default store;
