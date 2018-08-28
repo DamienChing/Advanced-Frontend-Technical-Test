@@ -9,18 +9,19 @@ const styles = {
   },
   container: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 64
   }
 }
 
 class cardGrid extends React.Component {
   render() {
-    console.log(this.props);
+    if (!this.props.cards) return null;
     const { classes } = this.props;
     return (
       <div className={classes.container}>
         <div className={classes.grid}>
-          {this.props.cards && this.props.cards.map((card, i) => {return <Card coreData={card.coreData} key={i}/> })}
+          {this.props.cards.map((card, i) => {return <Card coreData={card.coreData} key={i}/> })}
         </div>
       </div>
     )

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,9 +10,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   card: {
-    minWidth: 275,
     maxWidth: 275,
-    margin: 5
+    margin: 5,
+    transition: 'all 0.15s',
+    '&:hover': {
+      transform: 'scale(1.1)'
+    }
   },
   bullet: {
     display: 'inline-block',
@@ -28,25 +32,24 @@ const styles = {
 };
 
 const card = (props) => {
-  const { classes } = props;
+  const { classes, coreData } = props;
+  if (!coreData) return null;
   return (
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary">
-          Word of the Day
-    </Typography>
+          {coreData.state}
+        </Typography>
         <Typography variant="headline" component="h2">
-          be
-          nev
-          lent
-    </Typography>
+          {coreData.number}
+        </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          adjective
-    </Typography>
+          Application: {coreData.application}
+          <br/>
+          Assignee: {coreData.assignee}
+        </Typography>
         <Typography component="p">
-          well meaning and kindly.
-      <br />
-          {'"a benevolent smile"'}
+          {coreData.shortDescription}
         </Typography>
       </CardContent>
       <CardActions>
@@ -54,6 +57,18 @@ const card = (props) => {
       </CardActions>
     </Card>
   )
+}
+
+card.propTypes = {
+  coreData: PropTypes.shape({
+    id: PropTypes.string,
+    number: PropTypes.string,
+    type: PropTypes.string,
+    state: PropTypes.string,
+    shortDescription: PropTypes.string,
+    application: PropTypes.string,
+    assignee: PropTypes.string,
+  })
 }
 
 export default withStyles(styles)(card);
