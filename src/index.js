@@ -7,8 +7,13 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import thunkMiddleware from 'redux-thunk'
 import rootReducer from './reducers'
+import * as Actions from './actions'
 
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(thunkMiddleware)
+);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -16,3 +21,5 @@ ReactDOM.render(
   </Provider>
   , document.getElementById('root'));
 registerServiceWorker();
+
+store.dispatch(Actions.fetchCardsIfNeeded(0));
