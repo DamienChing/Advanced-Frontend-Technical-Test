@@ -80,3 +80,11 @@ export function changePage(page) {
     }
   )
 }
+
+export const SELECT_CARD = 'SELECT_CARD';
+export function selectCard(id) {
+  return {
+    type: SELECT_CARD,
+    id
+  }
+}

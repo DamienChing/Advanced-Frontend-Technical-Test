@@ -1,7 +1,8 @@
 const initialState = {
   cardCount: -1,
   pageCount: -1,
-  currentPage: 0
+  currentPage: 0,
+  selectedCard: null
 };
 
 const actionToHandler = {
@@ -11,6 +12,9 @@ const actionToHandler = {
   },
   CHANGE_PAGE: (state, action)=> {
     return {...state, currentPage: action.page};
+  },
+  SELECT_CARD: (state, action) => {
+    return {...state, selectedCard: action.id}
   }
 };
 
