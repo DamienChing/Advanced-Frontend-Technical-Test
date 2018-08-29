@@ -5,15 +5,18 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   grid: {
+    width: 1140,
+    maxWidth: '100%',
     display: 'grid',
     gridTemplateColumns: '25% 25% 25% 25%',
   },
   gridContainer: {
     position: 'absolute',
     width: '100%',
+    height: 750,
     display: 'flex',
     justifyContent: 'center',
-    transition: 'all 0.3s'
+    transition: 'all 0.3s ease'
   },
   container: {
     height: 750,
@@ -32,7 +35,7 @@ class CardViewer extends React.Component {
       <div className={classes.container}>
         {
           [...Array(pageCount).keys()].map((page) => {
-            if (Math.abs(currentPage - page) <= 1) {
+            if (Math.abs(currentPage - page) <= 4) {
               return <CardGrid key={page} cards={cards.slice(page * 12, (page + 1) * 12)} classes={classes} offset={page - currentPage} />
             } else return null;
           })

@@ -14,7 +14,7 @@ export function fetchCards(page) {
   return (dispatch, getState) => {
     // only create 'fetching' cards afetr initial fetch
     const cardCount = getState().viewer.cardCount;
-    if (cardCount > 0) dispatch(requestCards(page), cardCount);
+    if (cardCount > 0) dispatch(requestCards(page, cardCount));
 
     return fetch(`${url}&page=${parseInt(page / 4, 10)}&perPage=48`,
       {

@@ -1,14 +1,15 @@
 const actionToHandler = {
   RECEIVE_CARDS: (state, action) => {
     let newState = state.slice();
-    newState[action.page * 12 + action.cards.length] = null; //make sure that the array is correct length before splicing in new data
+    newState[action.page * 12 + action.cards.length - 1] = null; //make sure that the array is correct length before splicing in new data
     newState.splice(action.page * 12, action.cards.length, ...action.cards);
     return newState;
   },
   REQUEST_CARDS: (state, action) => {
     let newState = state.slice();
     const firstCard = action.page * 12;
-    for (let i = firstCard; i < firstCard + 48; i++) {
+    const lastCard = Math.min(firstCard + 48, action.cardCount);
+    for (let i = firstCard; i < lastCard; i++) {
       newState[i] = { status: 'fetching' };
     }
     return newState;
