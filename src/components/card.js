@@ -37,8 +37,14 @@ const styles = {
   },
 };
 
-const card = (props) => {
-  const { classes, coreData } = props;
+class card extends React.Component {
+  onButtonClick = () => {
+    this.props.selectCard(this.props.coreData.id);
+  }
+
+  render() {
+  const { classes, coreData} = this.props;
+
   return (
     coreData ?
       <Card className={classes.card} >
@@ -59,7 +65,7 @@ const card = (props) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <Button onClick={this.onButtonClick} size="small">Learn More</Button>
         </CardActions>
       </Card >
       :
@@ -69,6 +75,7 @@ const card = (props) => {
         </CardContent>
       </Card>
   )
+  }
 }
 
 card.propTypes = {
@@ -80,7 +87,8 @@ card.propTypes = {
     shortDescription: PropTypes.string,
     application: PropTypes.string,
     assignee: PropTypes.string,
-  })
+  }),
+  selectCard: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(card);

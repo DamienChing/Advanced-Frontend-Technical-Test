@@ -2,7 +2,8 @@ const initialState = {
   cardCount: -1,
   pageCount: -1,
   currentPage: 0,
-  selectedCard: null
+  selectedCard: null,
+  idToCardMap: {}
 };
 
 const actionToHandler = {

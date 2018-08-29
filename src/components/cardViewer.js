@@ -40,7 +40,7 @@ const styles = {
 
 class CardViewer extends React.Component {
   render() {
-    const { classes, cards, currentPage, pageCount } = this.props;
+    const { classes, cards, currentPage, pageCount, selectCard } = this.props;
     const loading = pageCount === -1 || !cards.length;
     return (
       <div className={classes.container + (loading ? ' loading' : '')}>
@@ -48,7 +48,7 @@ class CardViewer extends React.Component {
         {
           [...Array(Math.max(pageCount, 0)).keys()].map((page) => {
             if (Math.abs(currentPage - page) <= 4) {
-              return <CardGrid key={page} cards={cards.slice(page * 12, (page + 1) * 12)} classes={classes} offset={page - currentPage} />
+              return <CardGrid key={page} cards={cards.slice(page * 12, (page + 1) * 12)} classes={classes} offset={page - currentPage} selectCard={selectCard}/>
             } else return null;
           })
         }
@@ -59,11 +59,11 @@ class CardViewer extends React.Component {
 
 class CardGrid extends React.Component {
   render() {
-    const { classes, cards, offset } = this.props;
+    const { classes, cards, offset, selectCard } = this.props;
     return (
       <div className={classes.gridContainer} style={{ transform: `translateY(calc(${offset * 100}% + ${offset * 32}px))` }}>
         <div className={classes.grid}>
-          {cards.map((card, i) => { return <Card coreData={card.coreData} key={i} /> })}
+          {cards.map((card, i) => { return <Card coreData={card.coreData} key={i} selectCard={selectCard}/> })}
         </div>
       </div>
     )
@@ -73,14 +73,16 @@ class CardGrid extends React.Component {
 CardGrid.propTypes = {
   cards: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
-  offset: PropTypes.number.isRequired
+  offset: PropTypes.number.isRequired,
+  selectCard: PropTypes.func.isRequired
 }
 
 CardViewer.propTypes = {
   cards: PropTypes.array.isRequired,
   currentPage: PropTypes.number.isRequired,
   pageCount: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  selectCard: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(CardViewer);
