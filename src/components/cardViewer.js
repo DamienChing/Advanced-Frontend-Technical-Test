@@ -63,7 +63,7 @@ class CardGrid extends React.Component {
     return (
       <div className={classes.gridContainer} style={{ transform: `translateY(calc(${offset * 100}% + ${offset * 32}px))` }}>
         <div className={classes.grid}>
-          {cards.map((card, i) => { return <Card coreData={card.coreData} key={i} selectCard={selectCard}/> })}
+          {cards.map((card, i) => { return <Card cardData={card} coreData={card.coreData} key={i} selectCard={selectCard}/> })}
         </div>
       </div>
     )

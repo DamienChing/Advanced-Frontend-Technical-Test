@@ -17,7 +17,7 @@ const styles = {
     margin: 5,
     transition: 'all 0.15s',
     '&:hover': {
-      transform: 'scale(1.1)'
+      transform: 'scale(1.05)',
     },
     '& > .content': {
       width: 275,
@@ -38,8 +38,17 @@ const styles = {
 };
 
 class card extends React.Component {
+  state = {raised: false}
   onButtonClick = () => {
-    this.props.selectCard(this.props.coreData.id);
+    this.props.selectCard(this.props.cardData);
+  }
+
+  onMouseEnter = () => {
+    this.setState({raised: true});
+  }
+
+  onMouseLeave = () => {
+    this.setState({raised: false});
   }
 
   render() {
@@ -47,7 +56,7 @@ class card extends React.Component {
 
   return (
     coreData ?
-      <Card className={classes.card} >
+      <Card raised={this.state.raised} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} className={classes.card} >
         <CardContent>
           <Typography className={classes.title} color="textSecondary">
             {coreData.state}
@@ -79,6 +88,7 @@ class card extends React.Component {
 }
 
 card.propTypes = {
+  cardData: PropTypes.object.isRequired,
   coreData: PropTypes.shape({
     id: PropTypes.string,
     number: PropTypes.string,

@@ -3,7 +3,6 @@ const initialState = {
   pageCount: -1,
   currentPage: 0,
   selectedCard: null,
-  idToCardMap: {}
 };
 
 const actionToHandler = {
