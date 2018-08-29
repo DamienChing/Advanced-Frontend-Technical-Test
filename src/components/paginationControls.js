@@ -21,12 +21,13 @@ class PaginationControls extends React.Component {
         </div>
       )
     }
+
     return <div className={classes.container}>
-      <Button onClick={this.onBackward}>Back</Button>
+      <Button onClick={this.onBackward} disabled={viewer.currentPage === 0}>Back</Button>
       <span style={{ width: 300, display: 'inline-block' }}>
-        {`Page ${viewer.currentPage + 1} of ${parseInt(viewer.cardCount / 12, 10)}`}
+        {`Page ${viewer.currentPage + 1} of ${viewer.pageCount}`}
       </span>
-      <Button onClick={this.onForward}>Forward</Button>
+      <Button onClick={this.onForward} disabled={viewer.currentPage + 1 === viewer.pageCount}>Forward</Button>
     </div>
   }
 } 
