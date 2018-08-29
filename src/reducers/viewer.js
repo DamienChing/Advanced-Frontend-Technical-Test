@@ -1,12 +1,13 @@
 const initialState = {
   cardCount: -1,
-  pageCount: 0,
+  pageCount: -1,
   currentPage: 0
 };
 
 const actionToHandler = {
   SET_CARDS_COUNT: (state, action) => {
-    return {...state, cardCount: parseInt(action.cardsCount, 10), pageCount: parseInt(action.cardsCount / 12 + 1, 10)}
+    return {...state, cardCount: parseInt(action.cardsCount, 10),
+      pageCount: action.cardsCount !== 0 ? parseInt(action.cardsCount / 12 + 1, 10) : 0}
   },
   CHANGE_PAGE: (state, action)=> {
     return {...state, currentPage: action.page};
