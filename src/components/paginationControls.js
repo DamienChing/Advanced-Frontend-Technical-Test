@@ -35,7 +35,7 @@ class PaginationControls extends React.Component {
 
 PaginationControls.propTypes = {
   viewer: PropTypes.object.isRequired,
-  styles: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
   changePage: PropTypes.func.isRequired
 }
 

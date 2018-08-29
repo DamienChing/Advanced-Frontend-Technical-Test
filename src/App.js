@@ -4,7 +4,7 @@ import { create } from 'jss';
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
 import './App.css';
 import ApiTokenDialog from './components/ApiTokenDialog';
-import CardGrid from './containers/cardGridContainer'
+import CardViewer from './containers/cardViewerContainer'
 import PaginationControls from './containers/paginationControlsContainer';
 
 const generateClassName = createGenerateClassName();
@@ -15,7 +15,7 @@ class App extends Component {
     return (
       <JssProvider jss={jss} generateClassName={generateClassName}>
         <div className="App">
-          <CardGrid />
+          <CardViewer />
           <PaginationControls />
           <ApiTokenDialog />
         </div>

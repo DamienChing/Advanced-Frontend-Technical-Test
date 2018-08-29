@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Card from './card'
 import { withStyles } from '@material-ui/core/styles';
 
@@ -15,7 +16,7 @@ const styles = {
   }
 }
 
-class cardGrid extends React.Component {
+class cardViewer extends React.Component {
   render() {
     if (!this.props.cards) return null;
     const { classes } = this.props;
@@ -29,4 +30,11 @@ class cardGrid extends React.Component {
   }
 }
 
-export default withStyles(styles)(cardGrid);
+cardViewer.propTypes = {
+  cards: PropTypes.array.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  pageCount: PropTypes.number.isRequired,
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(cardViewer);
