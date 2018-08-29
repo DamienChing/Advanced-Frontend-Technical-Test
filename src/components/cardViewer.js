@@ -16,25 +16,39 @@ const styles = {
   }
 }
 
-class cardViewer extends React.Component {
+class CardViewer extends React.Component {
   render() {
     if (!this.props.cards) return null;
-    const { classes } = this.props;
+    const { classes, cards } = this.props;
     return (
       <div className={classes.container}>
-        <div className={classes.grid}>
-          {this.props.cards.map((card, i) => {return <Card coreData={card.coreData} key={i}/> })}
-        </div>
+        <CardGrid cards={cards} classes={classes} />
       </div>
     )
   }
 }
 
-cardViewer.propTypes = {
+class CardGrid extends React.Component {
+  render() {
+    const { classes, cards } = this.props;
+    return (
+      <div className={classes.grid}>
+        {cards.map((card, i) => { return <Card coreData={card.coreData} key={i} /> })}
+      </div>
+    )
+  }
+}
+
+CardGrid.propTypes = {
+  cards: PropTypes.array.isRequired,
+  classes: PropTypes.object.isRequired
+}
+
+CardViewer.propTypes = {
   cards: PropTypes.array.isRequired,
   currentPage: PropTypes.number.isRequired,
   pageCount: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(cardViewer);
+export default withStyles(styles)(CardViewer);
