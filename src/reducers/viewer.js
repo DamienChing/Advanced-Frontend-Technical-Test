@@ -1,5 +1,6 @@
 const initialState = {
   cardCount: -1,
+  pageCount: 0,
   currentPage: 0
 };
 

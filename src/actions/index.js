@@ -16,7 +16,7 @@ export function fetchCards(page) {
     const cardCount = getState().viewer.cardCount;
     if (cardCount > 0) dispatch(requestCards(page), cardCount);
 
-    return fetch(`${url}&page=${page}&perPage=48`,
+    return fetch(`${url}&page=${parseInt(page / 4, 10)}&perPage=48`,
       {
         method: 'GET',
         headers: { apiToken: sessionStorage.getItem('apiToken') }
@@ -41,8 +41,13 @@ function shouldFetchCards(state, page) {
 
 export function fetchCardsIfNeeded(page) {
   return (dispatch, getState) => {
-    if (shouldFetchCards(getState(), page))
-      dispatch(fetchCards(page));
+    // fetch for current block of 4 pages
+    if (shouldFetchCards(getState(), page - page % 4))
+      dispatch(fetchCards(page - page % 4));
+    // fetch for next block of 4 if not first page
+    if (page !== 0 && shouldFetchCards(getState(), page - page % 4 + 4)) {
+      dispatch(fetchCards(page - page % 4 + 4));
+    }
   }
 }
 
@@ -65,8 +70,13 @@ export function setCardsCount(cardsCount) {
 
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 export function changePage(page) {
-  return {
-    type: CHANGE_PAGE,
-    page
-  }
+  return (
+    dispatch => {
+      dispatch(fetchCardsIfNeeded(page));
+      dispatch ({
+        type: CHANGE_PAGE,
+        page
+      });
+    }
+  )
 }

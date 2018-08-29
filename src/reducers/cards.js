@@ -1,7 +1,8 @@
 const actionToHandler = {
   RECEIVE_CARDS: (state, action) => {
     let newState = state.slice();
-    newState.splice(action.page * 12, 48, ...action.cards);
+    newState[action.page * 12 + action.cards.length] = null; //make sure that the array is correct length before splicing in new data
+    newState.splice(action.page * 12, action.cards.length, ...action.cards);
     return newState;
   },
   REQUEST_CARDS: (state, action) => {
