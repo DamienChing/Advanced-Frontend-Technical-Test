@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles'
 import { LinearProgress } from '@material-ui/core';
@@ -31,6 +32,12 @@ class PaginationControls extends React.Component {
     </div>
   }
 } 
+
+PaginationControls.propTypes = {
+  viewer: PropTypes.object.isRequired,
+  styles: PropTypes.object.isRequired,
+  changePage: PropTypes.func.isRequired
+}
 
 const styles = {
   container: {
