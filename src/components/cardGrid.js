@@ -10,7 +10,8 @@ const styles = {
   container: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: 64
+    height: 750,
+    marginTop: 64,
   }
 }
 

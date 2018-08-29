@@ -1,5 +1,5 @@
 const initialState = {
-  cardCount: 0,
+  cardCount: -1,
   currentPage: 0
 };
 

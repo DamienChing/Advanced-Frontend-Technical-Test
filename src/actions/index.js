@@ -1,8 +1,9 @@
 export const REQUEST_CARDS = 'REQUEST_CARDS'
-function requestCards(page) {
+function requestCards(page, cardCount) {
   return {
     type: REQUEST_CARDS,
-    page
+    page,
+    cardCount
   }
 }
 
@@ -10,22 +11,25 @@ const url = 'https://atr-test-dh1.aiam-dh.com/atr-gateway/ticket-management/api/
 
 export const FETCH_CARDS = 'FETCH_CARDS'
 export function fetchCards(page) {
-  return dispatch => {
-    dispatch(requestCards(page));
+  return (dispatch, getState) => {
+    // only create 'fetching' cards afetr initial fetch
+    const cardCount = getState().viewer.cardCount;
+    if (cardCount > 0) dispatch(requestCards(page), cardCount);
+
     return fetch(`${url}&page=${page}&perPage=48`,
       {
         method: 'GET',
         headers: { apiToken: sessionStorage.getItem('apiToken') }
       })
       .then(response => {
-        if (!response.ok) throw(response);
+        if (!response.ok) throw (response);
         const cardsCount = response.headers.get('X-Total-Count');
         dispatch(setCardsCount(cardsCount))
         return response.json();
       })
       .catch(error => {
-          sessionStorage.removeItem('apiToken');
-          window.location.reload();
+        sessionStorage.removeItem('apiToken');
+        // window.location.reload();
       })
       .then(json => dispatch(receiveCards(page, json)))
   }
