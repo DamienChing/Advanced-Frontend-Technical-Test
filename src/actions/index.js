@@ -23,8 +23,8 @@ export function fetchCards(page) {
       })
       .then(response => {
         if (!response.ok) throw (response);
-        const cardsCount = response.headers.get('X-Total-Count');
-        dispatch(setCardsCount(cardsCount))
+        const cardCount = response.headers.get('X-Total-Count');
+        dispatch(setCardCount(cardCount))
         return response.json();
       })
       .catch(error => {
@@ -60,11 +60,11 @@ function receiveCards(page, json) {
   }
 }
 
-export const SET_CARDS_COUNT = "SET_CARDS_COUNT";
-export function setCardsCount(cardsCount) {
+export const SET_CARD_COUNT = "SET_CARD_COUNT";
+export function setCardCount(cardCount) {
   return {
-    type: SET_CARDS_COUNT,
-    cardsCount
+    type: SET_CARD_COUNT,
+    cardCount
   }
 }
 
@@ -82,9 +82,9 @@ export function changePage(page) {
 }
 
 export const SELECT_CARD = 'SELECT_CARD';
-export function selectCard(id) {
+export function selectCard(card) {
   return {
     type: SELECT_CARD,
-    id
+    card
   }
 }
