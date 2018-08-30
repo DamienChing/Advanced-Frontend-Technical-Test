@@ -8,9 +8,15 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-// Component to retrieve API Token from user input and save to browser session storage.
-// Then attempts and initial fetch of the first block.
-// If the token is rejected, the token is wiped and another token is reuquest.
+// ============================================================================
+// Component to retrieve API Token from user input and save to browser session
+// storage. Then attempts and initial fetch of the first block.
+// If the token is rejected, the token is wiped and another token is request.
+// ============================================================================
+// Props:
+// -fetchCardsIfNeeded: action creator function to fetch blocks of card if
+//                      needed on page change
+// ============================================================================
 class ApiTokenDialog extends React.Component {
   constructor(props) {
     super(props);

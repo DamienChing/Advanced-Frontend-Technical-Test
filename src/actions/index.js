@@ -1,3 +1,11 @@
+import { url, PAGES_PER_BLOCK, PER_PAGE, PER_BLOCK } from '../constants'
+
+// ============================================================================
+// Set cards into fetching state
+// ============================================================================
+// Parameters:
+// -page: first page of block to be fetched (0 indexed)
+// -cardCount: maximum number of known cards
 export const REQUEST_CARDS = 'REQUEST_CARDS'
 function requestCards(page, cardCount) {
   return {
@@ -7,16 +15,20 @@ function requestCards(page, cardCount) {
   }
 }
 
-const url = 'https://atr-test-dh1.aiam-dh.com/atr-gateway/ticket-management/api/v1/tickets?ticketType=incident&sortDirection=DESC'
-
+// ============================================================================
+// perform fetch and then update card count and store cards in redux store if successufl
+// if error, reload application
+// ============================================================================
+// Parameters:
+// -page: first page of block to be fetched (0 indexed)
 export const FETCH_CARDS = 'FETCH_CARDS'
 export function fetchCards(page) {
   return (dispatch, getState) => {
-    // only create 'fetching' cards afetr initial fetch
+    // only create 'fetching' cards after initial fetch
     const cardCount = getState().viewer.cardCount;
     if (cardCount > 0) dispatch(requestCards(page, cardCount));
 
-    return fetch(`${url}&page=${parseInt(page / 4, 10)}&perPage=48`,
+    return fetch(`${url}&page=${parseInt(page / PAGES_PER_BLOCK, 10)}&perPage=${PER_BLOCK}`,
       {
         method: 'GET',
         headers: { apiToken: sessionStorage.getItem('apiToken') }
@@ -29,28 +41,49 @@ export function fetchCards(page) {
       })
       .catch(error => {
         sessionStorage.removeItem('apiToken');
-        // window.location.reload();
+        window.location.reload();
       })
       .then(json => dispatch(receiveCards(page, json)))
   }
 }
 
+// ============================================================================
+// checks if block isn't loaded or in fetching state
+// ============================================================================
+// Parameters:
+// -page: first page of block to be fetched (0 indexed)
 function shouldFetchCards(state, page) {
-  return !state.cards[page * 12]
+  return (page === 0 || page / PAGES_PER_BLOCK >= 1) && !state.cards[page * PER_PAGE] // exclude pages 1, 2 and 3 (0 indexed)
 }
 
+// ============================================================================
+// from the current page number, check if current or next block needs to be
+// fetched.
+// ============================================================================
+// Parameters:
+// -page: current page number (0 indexed)
 export function fetchCardsIfNeeded(page) {
   return (dispatch, getState) => {
+    const currentBlockStart = page - page % PAGES_PER_BLOCK;
+    const nextBlockStart = currentBlockStart + PAGES_PER_BLOCK;
+
     // fetch for current block of 4 pages
-    if (shouldFetchCards(getState(), page - page % 4))
-      dispatch(fetchCards(page - page % 4));
+    if (shouldFetchCards(getState(), currentBlockStart))
+      dispatch(fetchCards(currentBlockStart));
+
     // fetch for next block of 4 if not first page
-    if (page !== 0 && shouldFetchCards(getState(), page - page % 4 + 4)) {
-      dispatch(fetchCards(page - page % 4 + 4));
+    if (page !== 0 && shouldFetchCards(getState(), nextBlockStart)) {
+      dispatch(fetchCards(nextBlockStart));
     }
   }
 }
 
+// ============================================================================
+// Load card data into redux store
+// ============================================================================
+// Parameters:
+// -page: first page of block to be loaded into (0 indexed)
+// -json: list of cards to be loaded
 export const RECEIVE_CARDS = 'RECEIVE_CARDS'
 function receiveCards(page, json) {
   return {
@@ -60,6 +93,11 @@ function receiveCards(page, json) {
   }
 }
 
+// ============================================================================
+// Set max cards count
+// ============================================================================
+// Parameters:
+// -cardCount: total number of cards
 export const SET_CARD_COUNT = "SET_CARD_COUNT";
 export function setCardCount(cardCount) {
   return {
@@ -68,6 +106,11 @@ export function setCardCount(cardCount) {
   }
 }
 
+// ============================================================================
+// Set current page
+// ============================================================================
+// Parameters:
+// -page: page number to change to (0 indexed)
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 export function changePage(page) {
   return (
@@ -81,6 +124,11 @@ export function changePage(page) {
   )
 }
 
+// ============================================================================
+// Set selected card to show in details panel
+// ============================================================================
+// Parameters:
+// -card: card data object
 export const SELECT_CARD = 'SELECT_CARD';
 export function selectCard(card) {
   return {
