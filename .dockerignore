@@ -3,3 +3,6 @@
 
 # Allow Build folder
 !/build
+!/src
+!/public
+!/package.json
