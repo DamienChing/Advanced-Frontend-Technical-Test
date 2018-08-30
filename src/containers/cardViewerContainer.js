@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import cardViewer from '../components/cardViewer'
+import cardViewer from '../components/CardViewer'
 import { selectCard } from '../actions'
 
 

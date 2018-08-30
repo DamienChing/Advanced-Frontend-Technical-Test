@@ -40,9 +40,6 @@ const styles = {
     alignItems: 'center',
     textAlign: 'center',
     transition: 'opacity 0.3s'
-  },
-  linearProgress: {
-    flexGrow: 1
   }
 };
 

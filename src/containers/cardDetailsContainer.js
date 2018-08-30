@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import cardDetails from '../components/cardDetails'
+import cardDetails from '../components/CardDetails'
 import { selectCard } from '../actions'
 
 

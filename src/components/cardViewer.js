@@ -1,42 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Card from './card'
+import Card from './Card'
 import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
-
-const styles = {
-  grid: {
-    width: 1140,
-    maxWidth: '100%',
-    display: 'grid',
-    gridTemplateColumns: '25% 25% 25% 25%',
-  },
-  gridContainer: {
-    position: 'absolute',
-    width: '100%',
-    height: 750,
-    display: 'flex',
-    justifyContent: 'center',
-    transition: 'all 0.3s ease',
-  },
-  container: {
-    height: 750,
-    marginTop: 64,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-    overflow: 'hidden',
-    padding: 32,
-    opacity: 1,
-    '& > div': {
-      transition: 'all 0.3s ease',
-    },
-    '&.loading > div:not(:first-child)': {
-      opacity: '0 !important'
-    }
-  },
-}
 
 class CardViewer extends React.Component {
   render() {
@@ -47,7 +13,7 @@ class CardViewer extends React.Component {
         {loading && <CircularProgress size={50} />}
         {
           [...Array(Math.max(pageCount, 0)).keys()].map((page) => {
-            if (Math.abs(currentPage - page) <= 4) {
+            if (Math.abs(currentPage - page) <= 1) {
               return <CardGrid key={page} cards={cards.slice(page * 12, (page + 1) * 12)} classes={classes} offset={page - currentPage} selectCard={selectCard}/>
             } else return null;
           })
@@ -68,6 +34,40 @@ class CardGrid extends React.Component {
       </div>
     )
   }
+}
+
+const styles = {
+  grid: {
+    width: 1140,
+    maxWidth: '100%',
+    display: 'grid',
+    gridTemplateColumns: '25% 25% 25% 25%',
+  },
+  gridContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: 750,
+    display: 'flex',
+    justifyContent: 'center',
+    transition: 'opacity  0.3s ease',
+  },
+  container: {
+    height: 750,
+    marginTop: 64,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+    overflow: 'hidden',
+    padding: 32,
+    opacity: 1,
+    '& > div': {
+      transition: 'all 0.3s ease',
+    },
+    '&.loading > div:not(:first-child)': {
+      opacity: '0 !important'
+    }
+  },
 }
 
 CardGrid.propTypes = {
