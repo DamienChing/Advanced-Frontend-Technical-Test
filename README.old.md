@@ -24,5 +24,9 @@ The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
 ## Build Docker Production Image
-### `sh ./docker_build.sh`
+### build
+#### `sh ./docker_build.sh <image_name>` 
 This will build an nginx image 
+
+### run
+#### `docker run -d -p <port>:80 --name <instance_name> <image_name>`
