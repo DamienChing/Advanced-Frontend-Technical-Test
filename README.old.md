@@ -30,3 +30,13 @@ This will build an nginx image
 
 ### run
 #### `docker run -d -p <port>:80 --name <instance_name> <image_name>`
+
+## Component Structure
+### API Token Dialog
+![API Token Input](https://github.com/DamienChing/Advanced-Frontend-Technical-Test/raw/master/images/readme/1.JPG)
+
+### Card Pages View
+![API Token Input](https://github.com/DamienChing/Advanced-Frontend-Technical-Test/raw/master/images/readme/2.JPG)
+
+### Card Details View
+![API Token Input](https://github.com/DamienChing/Advanced-Frontend-Technical-Test/raw/master/images/readme/3.JPG)
