@@ -64,7 +64,9 @@ This will build an nginx image
 
 ## Caching Method
 ### Summary
-The loading of the cards is divided in blocks of 4 pages. The size of the block and number of cards per page can be changed in the constants folder.
+The card data is cached as a list of objects in the redux store.
+
+The fetching of the cards is divided in blocks of 4 pages. The size of the block and number of cards per page can be changed in the constants folder.
 
 On application entry, the API is called immediately to fetch the first block. The maximum number of pages is also set.
 
