@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import Card from "./Card";
 import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import debounceRender from 'react-debounce-render'
 import { PER_PAGE } from "../constants";
+import _ from 'lodash'
+import throttle from 'react-throttle-render'
 
 // ============================================================================
 // Component display pages of CardGrids, or display circular progress if
@@ -17,6 +20,7 @@ import { PER_PAGE } from "../constants";
 // - selectCard: action creator to select a specific card
 // ============================================================================
 class CardViewer extends React.Component {
+
   renderPage = page => {
     const { cards, currentPage, selectCard } = this.props;
     if (Math.abs(currentPage - page) <= 1) {
@@ -30,6 +34,12 @@ class CardViewer extends React.Component {
       );
     } else return null;
   };
+
+  update(nextProps, nextState){
+    return true;
+  }
+
+  // shouldComponentUpdate = _.throttle(this.update, 1000, {leading: true});
 
   render() {
     const { classes, cards, pageCount } = this.props;
@@ -76,7 +86,6 @@ class CardGrid extends React.Component {
             return (
               <Card
                 cardData={card}
-                coreData={card.coreData}
                 key={i}
                 selectCard={selectCard}
               />
@@ -120,7 +129,8 @@ const gridStyles = {
     width: 1140,
     maxWidth: "100%",
     display: "grid",
-    gridTemplateColumns: "25% 25% 25% 25%"
+    gridTemplateColumns: "25% 25% 25% 25%",
+    gridTemplateRows: "250px 250px"
   },
   gridContainer: {
     position: "absolute",
@@ -133,4 +143,5 @@ const gridStyles = {
 };
 
 export const StyledCardGrid = withStyles(gridStyles)(CardGrid);
-export default withStyles(viewerStyles)(CardViewer);
+// export default withStyles(viewerStyles)(CardViewer);
+export default debounceRender(withStyles(viewerStyles)(CardViewer), 150, {leading:true});

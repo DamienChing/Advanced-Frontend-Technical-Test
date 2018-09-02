@@ -32,7 +32,7 @@ class card extends React.Component {
 
   render() {
     const { classes, cardData } = this.props;
-    const { coreData } = cardData;
+    const coreData = cardData && cardData.coreData;
 
     return coreData ? (
       // render loaded card

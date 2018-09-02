@@ -23,11 +23,14 @@ const actionToHandler = {
     const { cardCount } = action;
     const firstCardIndex = action.page * PER_PAGE;
     const lastCardIndex = Math.min(firstCardIndex + PER_BLOCK, cardCount - 1); // trim to number of cards count
+    const numCards = lastCardIndex - firstCardIndex;
+    console.log(numCards)
+    if (numCards <= 0) return newState;
     newState[lastCardIndex] = null; //make sure that the array is correct length before splicing in new data, otherwise it gets truncated
     newState.splice(
       firstCardIndex,
-      PER_BLOCK,
-      ...Array(PER_BLOCK).fill({ status: "fetching" })
+      numCards,
+      ...Array(lastCardIndex - firstCardIndex).fill({ status: "fetching" })
     );
     return newState;
   }
