@@ -3,6 +3,7 @@
 **Time taken to develop:** Approximately 2.5 days
 
 ## Table of Contents
+* [Running the Application](#running-the-application)
 * [Local Development](#local-development)
 * [Local Build](#local-build)
 * [Docker Build](#docker-build)
