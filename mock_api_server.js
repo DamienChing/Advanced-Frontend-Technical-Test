@@ -1,5 +1,4 @@
 let express = require('express'),
-cors = require('cors');
 app = express(),
 port = 3001;
 
