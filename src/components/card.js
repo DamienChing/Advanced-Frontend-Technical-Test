@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Truncate from 'react-truncate'
 import { withStyles } from "@material-ui/core/styles";
 
 // ============================================================================
@@ -43,7 +44,7 @@ class card extends React.Component {
         onClick={this.onButtonClick}
         className={classes.card}
       >
-        <CardContent>
+        <CardContent className={classes.content}>
           <Typography className={classes.title} color="textSecondary">
             {coreData.state}
           </Typography>
@@ -55,7 +56,9 @@ class card extends React.Component {
             <br />
             Assignee: {coreData.assignee}
           </Typography>
-          <Typography component="p">{coreData.shortDescription}</Typography>
+          <Typography component="p">
+            <Truncate lines={2}>{coreData.shortDescription}</Truncate>
+          </Typography>
         </CardContent>
         <CardActions>
           <Button onClick={this.onButtonClick} size="small">
@@ -93,7 +96,7 @@ const styles = {
     transition: "all 0.15s",
     "&:hover": {
       transform: "scale(1.05)",
-      cursor: 'pointer'
+      cursor: "pointer"
     },
     "& > .content": {
       width: 275,
@@ -110,6 +113,13 @@ const styles = {
   },
   pos: {
     marginBottom: 12
+  },
+  content: {
+    "& > :not(:last-child)": {
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap"
+    }
   }
 };
 

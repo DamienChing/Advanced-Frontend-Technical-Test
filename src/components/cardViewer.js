@@ -5,8 +5,6 @@ import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import debounceRender from 'react-debounce-render'
 import { PER_PAGE } from "../constants";
-import _ from 'lodash'
-import throttle from 'react-throttle-render'
 
 // ============================================================================
 // Component display pages of CardGrids, or display circular progress if
