@@ -61,7 +61,7 @@ class ApiTokenDialog extends React.Component {
 }
 
 ApiTokenDialog.propTypes = {
-  fetchCardsIfNeeded: PropTypes.func.isRequired
+  changePage: PropTypes.func.isRequired
 };
 
 export default ApiTokenDialog;
