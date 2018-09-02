@@ -1,25 +1,38 @@
-# Table of Contents
+
+# Advanced-Frontend-Technical-Test
+**Time taken to develop:** Approximately 2.5 days
+
+## Table of Contents
 * [Local Development](#local-development)
 * [Local Build](#local-build)
 * [Docker Build](#docker-build)
 * [Component Structure](#component-structure)
 * [Caching Method](#caching-method)
 
-# Advanced-Frontend-Technical-Test
+## Running the Application
+1. Run application using [local dev](#local-development) or [local build](#local-build) or [docker](#docker-build) mode.
+2. Go to http://localhost:3000 (dev) or the chosen localhost port.
+3. Enter a valid API key into the dialog. If you are using the mock server, it can be anything.
+
 ## Local Development
 Install node first https://nodejs.org/en/
 
-#### `npm run start`
+### `npm run start`
 Runs the app in the development mode.
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.
 You will also see any lint errors in the console.
 
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](#running-tests) for more information.
+
+## Mock API Server
+### `node mock_api_server.js`
+Runs a server to simulate. Change **src/constants/index.js** to switch endpoints that are used.
 
 ## Local Build
 ### `npm run build`
