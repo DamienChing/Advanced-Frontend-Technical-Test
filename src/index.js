@@ -25,5 +25,5 @@ registerServiceWorker();
 
 const apiToken = sessionStorage.getItem('apiToken')
 if (apiToken) {
-  store.dispatch(Actions.fetchCardsIfNeeded(0));
+  store.dispatch(Actions.changePage(0));
 }

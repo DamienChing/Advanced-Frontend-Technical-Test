@@ -26,7 +26,7 @@ class ApiTokenDialog extends React.Component {
   onSubmit = e => {
     e.preventDefault(); //prevent form from linking to page
     sessionStorage.setItem("apiToken", this.apiToken.value);
-    this.props.fetchCardsIfNeeded(0);
+    this.props.changePage(0);
     this.forceUpdate(); //close dialog by refreshing open prop
   };
 
